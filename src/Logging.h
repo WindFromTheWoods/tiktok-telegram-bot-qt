@@ -1,0 +1,8 @@
+#pragma once
+
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logApp)
+Q_DECLARE_LOGGING_CATEGORY(logTelegram)
+Q_DECLARE_LOGGING_CATEGORY(logTikTok)
+Q_DECLARE_LOGGING_CATEGORY(logNetwork)
