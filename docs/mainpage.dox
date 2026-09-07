@@ -1,0 +1,47 @@
+/**
+ * @mainpage TikTok Telegram Bot API reference
+ *
+ * @section introduction Introduction
+ *
+ * TikTok Telegram Bot is a C++23 and Qt desktop application that accepts TikTok
+ * URLs through a Telegram bot, downloads media, and publishes it locally or through
+ * Telegram's native server-side schedule using TDLib.
+ *
+ * @section architecture Architecture
+ *
+ * - `app` coordinates polling, downloads, scheduling, updates, and autostart.
+ * - `config` validates settings and protects credentials.
+ * - `storage` persists channels, schedules, the active queue, and publication history.
+ * - `telegram` implements the Bot API and optional TDLib publisher.
+ * - `tiktok` validates URLs and manages the `yt-dlp` process.
+ * - `ui` exposes the application model to QML and manages the system tray.
+ *
+ * The application is event-driven. Objects with QObject affinity run on the main Qt
+ * thread unless their documentation says otherwise. TdJsonClient owns its receive
+ * worker and forwards parsed events to the object's thread through queued signals.
+ *
+ * @section operation Publication modes
+ *
+ * In local mode, downloaded videos remain in the application cache until the Bot API
+ * publishes them. In Telegram server mode, TdPublisher uploads a video immediately
+ * with a future scheduling state; Telegram then owns the pending media.
+ *
+ * @section security Security model
+ *
+ * The Telegram bot token, TDLib API hash, and TDLib database encryption key are
+ * secrets. CredentialStore uses Windows Credential Manager on Windows. Login codes
+ * and two-step-verification passwords are transient and must never be persisted or
+ * logged.
+ *
+ * @section coding_standard Coding standard
+ *
+ * The project uses the Beningo-inspired, Qt-compatible rules documented in
+ * `docs/CODING_STYLE.md`. `.clang-format` is the authoritative formatting profile.
+ *
+ * @section validation Testing and validation
+ *
+ * CTest covers configuration validation, URL validation, Telegram response parsing,
+ * schedule calculation, SQLite state transitions, backup restore, and TDLib request
+ * flow through a fake tdjson library. The `--ui-smoke-test` option validates QML
+ * startup without starting Telegram polling.
+ */

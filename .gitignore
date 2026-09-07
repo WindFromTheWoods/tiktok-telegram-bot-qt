@@ -1,12 +1,17 @@
 /build/
 /build-*/
 /out/
+/.agents/
+/.github/
 /.cache/
 /.cmake/
 /.qt/
 /CMakeUserPresets.json
 /.idea/
 /.vscode/
+/.qtcreator/
+/.packaging/
+/artifacts/
 *.user
 *.user.*
 *.suo

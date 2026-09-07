@@ -1,0 +1,39 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+Standard: Latest
+
+# Beningo-inspired layout: make every scope visually obvious.
+BreakBeforeBraces: Allman
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+
+IndentWidth: 4
+AccessModifierOffset: -4
+ContinuationIndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+
+DerivePointerAlignment: false
+PointerAlignment: Left
+ReferenceAlignment: Left
+SpaceBeforeParens: ControlStatements
+SpacesInAngles: Never
+
+IncludeBlocks: Preserve
+SortIncludes: CaseSensitive
+SortUsingDeclarations: LexicographicNumeric
+
+BreakConstructorInitializers: BeforeComma
+PackConstructorInitializers: Never
+EmptyLineAfterAccessModifier: Never
+EmptyLineBeforeAccessModifier: LogicalBlock
+NamespaceIndentation: None
+FixNamespaceComments: true
+...

@@ -1,3 +1,16 @@
+/******************************************************************************
+ * @file    TelegramBot.cpp
+ * @brief   Implements resilient Telegram update polling with bounded backoff.
+ *
+ * @author  Zheludchenko Yehor
+ * @date    2026-08-30
+ * @version 2.1.0
+ *
+ * @copyright Copyright (c) 2026 TikTok Telegram Bot.
+ *
+ * Target: Qt 6.11.2 (MSVC 2022 64-bit, C++23)
+ ******************************************************************************/
+
 #include "telegram/TelegramBot.h"
 
 #include "Logging.h"
@@ -8,14 +21,15 @@
 #include <algorithm>
 #include <chrono>
 
-namespace {
+namespace
+{
 
 constexpr int LongPollTimeoutSeconds = 30;
 constexpr int MaximumBackoffSeconds = 30;
 
 } // namespace
 
-TelegramBot::TelegramBot(TelegramApi *api, QObject *parent)
+TelegramBot::TelegramBot(TelegramApi* api, QObject* parent)
     : QObject(parent)
     , m_api(api)
 {
@@ -30,7 +44,8 @@ TelegramBot::TelegramBot(TelegramApi *api, QObject *parent)
 
 void TelegramBot::start()
 {
-    if (m_running) {
+    if (m_running)
+    {
         return;
     }
     m_running = true;
@@ -47,24 +62,28 @@ void TelegramBot::stop()
 
 void TelegramBot::poll()
 {
-    if (!m_running) {
+    if (!m_running)
+    {
         return;
     }
-    if (m_waitingForIdentity) {
+    if (m_waitingForIdentity)
+    {
         m_api->getMe();
         return;
     }
     m_api->getUpdates(m_offset, LongPollTimeoutSeconds);
 }
 
-void TelegramBot::onGetMeFinished(const bool success, const QString &error,
+void TelegramBot::onGetMeFinished(const bool success, const QString& error,
                                   const int retryAfterSeconds)
 {
-    if (!m_running || !m_waitingForIdentity) {
+    if (!m_running || !m_waitingForIdentity)
+    {
         return;
     }
 
-    if (success) {
+    if (success)
+    {
         m_waitingForIdentity = false;
         m_consecutiveFailures = 0;
         qCInfo(logTelegram) << "Telegram polling started";
@@ -80,26 +99,30 @@ void TelegramBot::onGetMeFinished(const bool success, const QString &error,
     m_pollTimer.start(std::chrono::seconds(delay));
 }
 
-void TelegramBot::onUpdatesReceived(const QList<TelegramUpdate> &updates)
+void TelegramBot::onUpdatesReceived(const QList<TelegramUpdate>& updates)
 {
-    if (!m_running || m_waitingForIdentity) {
+    if (!m_running || m_waitingForIdentity)
+    {
         return;
     }
 
     m_consecutiveFailures = 0;
-    for (const TelegramUpdate &update : updates) {
+    for (const TelegramUpdate& update : updates)
+    {
         m_offset = std::max(m_offset, update.updateId + 1);
         qCDebug(logTelegram) << "Received update" << update.updateId;
-        if (update.message.has_value()) {
+        if (update.message.has_value())
+        {
             emit messageReceived(*update.message);
         }
     }
     schedulePoll(0);
 }
 
-void TelegramBot::onUpdatesFailed(const QString &error, const int retryAfterSeconds)
+void TelegramBot::onUpdatesFailed(const QString& error, const int retryAfterSeconds)
 {
-    if (!m_running || m_waitingForIdentity) {
+    if (!m_running || m_waitingForIdentity)
+    {
         return;
     }
 
@@ -112,7 +135,8 @@ void TelegramBot::onUpdatesFailed(const QString &error, const int retryAfterSeco
 
 void TelegramBot::schedulePoll(const int delaySeconds)
 {
-    if (m_running) {
+    if (m_running)
+    {
         m_pollTimer.start(std::chrono::seconds(std::max(0, delaySeconds)));
     }
 }

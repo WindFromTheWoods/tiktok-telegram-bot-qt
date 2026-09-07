@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>TikTok Telegram Bot</Name>
+    <Version>2.1.0</Version>
+    <Title>TikTok Telegram Bot Setup</Title>
+    <Publisher>TikTok Telegram Bot</Publisher>
+    <StartMenuDir>TikTok Telegram Bot</StartMenuDir>
+    <TargetDir>@ApplicationsDirX64@/TikTok Telegram Bot</TargetDir>
+    <MaintenanceToolName>maintenancetool</MaintenanceToolName>
+    <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
+    <RemoteRepositories>
+        <Repository>
+            <Url>@UPDATE_REPOSITORY_URL@</Url>
+            <Enabled>1</Enabled>
+            <DisplayName>TikTok Telegram Bot updates</DisplayName>
+        </Repository>
+    </RemoteRepositories>
+</Installer>

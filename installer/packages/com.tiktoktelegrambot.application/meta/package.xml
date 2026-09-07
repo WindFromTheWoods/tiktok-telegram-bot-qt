@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>TikTok Telegram Bot</DisplayName>
+    <Description>Desktop TikTok download queue and Telegram channel publisher.</Description>
+    <Version>2.1.0</Version>
+    <ReleaseDate>2026-08-25</ReleaseDate>
+    <Name>com.tiktoktelegrambot.application</Name>
+    <Default>true</Default>
+    <Essential>true</Essential>
+    <Script>installscript.qs</Script>
+</Package>

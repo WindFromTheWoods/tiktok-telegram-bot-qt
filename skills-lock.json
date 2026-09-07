@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "skill-doctor": {
+      "source": "warpdotdev/common-skills",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/skill-doctor/SKILL.md",
+      "computedHash": "ad386c03191e593232308eafc8127a52acabb5f51f669430a3b3b4b83b1ed934"
+    }
+  }
+}
